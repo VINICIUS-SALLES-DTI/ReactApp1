@@ -2,6 +2,7 @@
 using ReactApp1.Server.Apresentacao.Dependencias.Persistencia.Entidades;
 using ReactApp1.Server.Apresentacao.Dependencias.Persistencia.UnitOfWorks.Interfaces;
 using ReactApp1.Server.CrossCutting.DTOs;
+using System.ComponentModel.DataAnnotations;
 
 namespace ReactApp1.Server.Negocio.Servicos;
 
@@ -42,20 +43,39 @@ public class TracoServico : ITracoServico
 
     public async Task<TracoDto> CriarAsync(TracoCriacaoDto tracoDto)
     {
-        // Criar a entidade Traco com seus componentes
+        if (tracoDto == null)
+            throw new ArgumentNullException(nameof(tracoDto));
+
         var traco = new Traco
         {
             Nome = tracoDto.Nome,
             ResistenciaFck = tracoDto.ResistenciaFck,
             Slump = tracoDto.Slump,
-            TracoMateriais = tracoDto.Componentes.Select(c => new TracoMaterial
+            TracoMateriais = tracoDto.Componentes?.Select(c => new TracoMaterial
             {
                 MaterialId = c.MaterialId,
                 Quantidade = c.Quantidade,
                 UnidadeMedida = c.UnidadeMedida
-            }).ToList()
+            }).ToList() ?? new List<TracoMaterial>()
         };
 
+        // Validar DataAnnotations na entidade Traco (nome, ranges etc.)
+        Validator.ValidateObject(traco, new ValidationContext(traco), validateAllProperties: true);
+
+        // Validações mais complexas que envolvem regras de negócio: componentes
+        if (traco.TracoMateriais == null || !traco.TracoMateriais.Any())
+            throw new ArgumentException("Pelo menos um componente deve ser informado.", nameof(tracoDto.Componentes));
+
+        foreach (var c in traco.TracoMateriais)
+        {
+            if (c.MaterialId <= 0)
+                throw new ArgumentException("MaterialId inválido em um componente.", nameof(tracoDto.Componentes));
+            if (c.Quantidade <= 0)
+                throw new ArgumentException("Quantidade de um componente deve ser maior que zero.", nameof(tracoDto.Componentes));
+            if (string.IsNullOrWhiteSpace(c.UnidadeMedida))
+                throw new ArgumentException("Unidade de medida é obrigatória em um componente.", nameof(tracoDto.Componentes));
+        }
+        // Adicionar o traço (o EF vai gerenciar os TracoMateriais automaticamente)
         // Adicionar o traço (o EF vai gerenciar os TracoMateriais automaticamente)
         await _unitOfWork.Tracos.AdicionarAsync(traco);
         await _unitOfWork.CompletarAsync();
@@ -131,10 +151,18 @@ public class TracoServico : ITracoServico
         if (traco == null)
             return null;
 
-        // Atualizar propriedades básicas
+
+        // Validar entrada básica via DataAnnotations na própria entidade
+        if (tracoDto == null)
+            throw new ArgumentNullException(nameof(tracoDto));
+
         traco.Nome = tracoDto.Nome;
         traco.ResistenciaFck = tracoDto.ResistenciaFck;
         traco.Slump = tracoDto.Slump;
+
+        Validator.ValidateObject(traco, new ValidationContext(traco), validateAllProperties: true);
+
+        // Validações mais complexas: componentes
 
         // Limpar componentes antigos
         traco.TracoMateriais.Clear();

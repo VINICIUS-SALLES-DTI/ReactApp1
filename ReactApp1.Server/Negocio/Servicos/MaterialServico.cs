@@ -2,6 +2,7 @@ using ReactApp1.Server.Apresentacao.Dependencias.Persistencia.Entidades;
 using ReactApp1.Server.Apresentacao.Dependencias.Persistencia.UnitOfWorks.Interfaces;
 using ReactApp1.Server.CrossCutting.DTOs;
 using ReactApp1.Server.Negocio.Servicos.Interfaces;
+using System.ComponentModel.DataAnnotations;
 
 namespace ReactApp1.Server.Negocio.Servicos;
 
@@ -45,12 +46,18 @@ public class MaterialServico : IMaterialServico
 
     public async Task<MaterialDto> CriarAsync(MaterialCriacaoDto materialDto)
     {
+        if (materialDto == null)
+            throw new ArgumentNullException(nameof(materialDto));
+
         var material = new Material
         {
             Nome = materialDto.Nome,
             PrecoUnitario = materialDto.PrecoUnitario,
             Disponivel = true // Por padrão, novos materiais estão disponíveis
         };
+
+        // Validar DataAnnotations na entidade
+        Validator.ValidateObject(material, new ValidationContext(material), validateAllProperties: true);
 
         await _unitOfWork.Materiais.AdicionarAsync(material);
         await _unitOfWork.CompletarAsync();
@@ -71,8 +78,14 @@ public class MaterialServico : IMaterialServico
         if (material == null)
             return false;
 
+        if (materialDto == null)
+            throw new ArgumentNullException(nameof(materialDto));
+
         material.Nome = materialDto.Nome;
         material.PrecoUnitario = materialDto.PrecoUnitario;
+
+        // Validar DataAnnotations na entidade atualizada
+        Validator.ValidateObject(material, new ValidationContext(material), validateAllProperties: true);
 
         _unitOfWork.Materiais.Atualizar(material);
         await _unitOfWork.CompletarAsync();
