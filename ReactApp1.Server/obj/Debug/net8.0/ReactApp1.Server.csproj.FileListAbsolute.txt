@@ -229,3 +229,4 @@ C:\Users\dti-\Desktop\ReactApp1\ReactApp1.Server\bin\Debug\net8.0\xunit.abstract
 C:\Users\dti-\Desktop\ReactApp1\ReactApp1.Server\bin\Debug\net8.0\xunit.assert.dll
 C:\Users\dti-\Desktop\ReactApp1\ReactApp1.Server\bin\Debug\net8.0\xunit.core.dll
 C:\Users\dti-\Desktop\ReactApp1\ReactApp1.Server\bin\Debug\net8.0\xunit.execution.dotnet.dll
+C:\Users\dti-\Desktop\ReactApp1\ReactApp1.Server\bin\Debug\net8.0\appsettings.json
