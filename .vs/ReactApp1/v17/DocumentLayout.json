@@ -19,7 +19,7 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "ReactApp1.Server",
+              "Title": "ReactApp1.Server.csproj",
               "DocumentMoniker": "C:\\Users\\dti-\\Desktop\\ReactApp1\\ReactApp1.Server\\ReactApp1.Server.csproj",
               "RelativeDocumentMoniker": "ReactApp1.Server\\ReactApp1.Server.csproj",
               "ToolTip": "C:\\Users\\dti-\\Desktop\\ReactApp1\\ReactApp1.Server\\ReactApp1.Server.csproj",

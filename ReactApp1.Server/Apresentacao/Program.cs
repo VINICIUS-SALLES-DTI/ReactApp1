@@ -19,6 +19,29 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IMaterialServico, MaterialServico>();
 builder.Services.AddScoped<ITracoServico, TracoServico>();
 
+//3. CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowLocalhost", policy =>
+    {
+        // aceita qualquer origem cujo host seja 'localhost' ou '127.0.0.1' (qualquer porta)
+        policy.SetIsOriginAllowed(origin =>
+        {
+            try
+            {
+                var uri = new Uri(origin);
+                return uri.Host == "localhost" || uri.Host == "127.0.0.1";
+            }
+            catch
+            {
+                return false;
+            }
+        })
+        .AllowAnyHeader()
+        .AllowAnyMethod()
+        .AllowCredentials();
+    });
+});
 
 // 5. Serviços Padrão
 builder.Services.AddControllers();
@@ -41,6 +64,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+// Aplicar CORS para permitir requisições do frontend em localhost
+app.UseCors("AllowLocalhost");
 
 app.UseAuthorization();
 
