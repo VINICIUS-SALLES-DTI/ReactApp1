@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\dti-\\Desktop\\ReactApp1\\ReactApp1.Server\\ReactApp1.Server.csproj": {}
+    "c:\\Users\\dti-\\Desktop\\ReactApp1\\ReactApp1.Server\\ReactApp1.Server.csproj": {}
   },
   "projects": {
-    "C:\\Users\\dti-\\Desktop\\ReactApp1\\ReactApp1.Server\\ReactApp1.Server.csproj": {
+    "c:\\Users\\dti-\\Desktop\\ReactApp1\\ReactApp1.Server\\ReactApp1.Server.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\dti-\\Desktop\\ReactApp1\\ReactApp1.Server\\ReactApp1.Server.csproj",
+        "projectUniqueName": "c:\\Users\\dti-\\Desktop\\ReactApp1\\ReactApp1.Server\\ReactApp1.Server.csproj",
         "projectName": "ReactApp1.Server",
-        "projectPath": "C:\\Users\\dti-\\Desktop\\ReactApp1\\ReactApp1.Server\\ReactApp1.Server.csproj",
+        "projectPath": "c:\\Users\\dti-\\Desktop\\ReactApp1\\ReactApp1.Server\\ReactApp1.Server.csproj",
         "packagesPath": "C:\\Users\\dti-\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\dti-\\Desktop\\ReactApp1\\ReactApp1.Server\\obj\\",
+        "outputPath": "c:\\Users\\dti-\\Desktop\\ReactApp1\\ReactApp1.Server\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -51,25 +51,17 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "Dapper": {
+              "target": "Package",
+              "version": "[2.1.66, )"
+            },
+            "Dommel": {
+              "target": "Package",
+              "version": "[3.4.0, )"
+            },
             "FluentAssertions": {
               "target": "Package",
               "version": "[8.7.1, )"
-            },
-            "Microsoft.EntityFrameworkCore": {
-              "target": "Package",
-              "version": "[9.0.9, )"
-            },
-            "Microsoft.EntityFrameworkCore.Design": {
-              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
-              "suppressParent": "All",
-              "target": "Package",
-              "version": "[9.0.9, )"
-            },
-            "Microsoft.EntityFrameworkCore.Tools": {
-              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
-              "suppressParent": "All",
-              "target": "Package",
-              "version": "[9.0.9, )"
             },
             "Microsoft.Extensions.Configuration.Json": {
               "target": "Package",
@@ -86,10 +78,6 @@
             "Moq": {
               "target": "Package",
               "version": "[4.20.72, )"
-            },
-            "Npgsql.EntityFrameworkCore.PostgreSQL": {
-              "target": "Package",
-              "version": "[9.0.4, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",

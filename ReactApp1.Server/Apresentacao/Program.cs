@@ -1,4 +1,5 @@
-using Microsoft.EntityFrameworkCore;
+using Dapper;
+using Dommel;
 using ReactApp1.Server.Apresentacao.Dependencias;
 using ReactApp1.Server.Apresentacao.Dependencias.Persistencia.UnitOfWorks;
 using ReactApp1.Server.Apresentacao.Dependencias.Persistencia.UnitOfWorks.Interfaces;
@@ -11,13 +12,6 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 // --- CONFIGURAÇÃO DE SERVIÇOS ---
 
 // 1. DbContext
-builder.Services.AddDbContext<SuperMixDbContext>(options =>
-    options.UseNpgsql(connectionString));
-
-// 2. Injeção de Dependência
-builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-builder.Services.AddScoped<IMaterialServico, MaterialServico>();
-builder.Services.AddScoped<ITracoServico, TracoServico>();
 
 //3. CORS
 builder.Services.AddCors(options =>
