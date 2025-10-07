@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ReactApp1.Server.Apresentacao.Dependencias.Persistencia.Entidades;
 
-[Table("tracos")]
+[Table("Tracos")]
 public class Traco
 {
     [Key]

@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ReactApp1.Server.Apresentacao.Dependencias.Persistencia.Entidades;
 
-[Table("materials")]
+[Table("Materiais")]
 public class Material
 {
     [Key]

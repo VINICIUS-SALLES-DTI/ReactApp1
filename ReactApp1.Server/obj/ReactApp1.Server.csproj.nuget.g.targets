@@ -9,6 +9,7 @@
     <Import Project="$(NuGetPackageRoot)microsoft.testplatform.testhost\18.0.0\build\net8.0\Microsoft.TestPlatform.TestHost.targets" Condition="Exists('$(NuGetPackageRoot)microsoft.testplatform.testhost\18.0.0\build\net8.0\Microsoft.TestPlatform.TestHost.targets')" />
     <Import Project="$(NuGetPackageRoot)microsoft.codecoverage\18.0.0\build\netstandard2.0\Microsoft.CodeCoverage.targets" Condition="Exists('$(NuGetPackageRoot)microsoft.codecoverage\18.0.0\build\netstandard2.0\Microsoft.CodeCoverage.targets')" />
     <Import Project="$(NuGetPackageRoot)microsoft.net.test.sdk\18.0.0\build\net8.0\Microsoft.NET.Test.Sdk.targets" Condition="Exists('$(NuGetPackageRoot)microsoft.net.test.sdk\18.0.0\build\net8.0\Microsoft.NET.Test.Sdk.targets')" />
+    <Import Project="$(NuGetPackageRoot)microsoft.aspnetcore.spaproxy\9.0.9\build\Microsoft.AspNetCore.SpaProxy.targets" Condition="Exists('$(NuGetPackageRoot)microsoft.aspnetcore.spaproxy\9.0.9\build\Microsoft.AspNetCore.SpaProxy.targets')" />
     <Import Project="$(NuGetPackageRoot)coverlet.collector\6.0.2\build\netstandard2.0\coverlet.collector.targets" Condition="Exists('$(NuGetPackageRoot)coverlet.collector\6.0.2\build\netstandard2.0\coverlet.collector.targets')" />
   </ImportGroup>
 </Project>

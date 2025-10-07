@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "YMA9ZmmyYmc=",
+  "dgSpecHash": "S/Gw09Kwcqg=",
   "success": true,
   "projectFilePath": "C:\\Users\\dti-\\Desktop\\ReactApp1\\ReactApp1.Server\\ReactApp1.Server.csproj",
   "expectedPackageFiles": [
@@ -17,6 +17,7 @@
     "C:\\Users\\dti-\\.nuget\\packages\\k4os.compression.lz4\\1.1.11\\k4os.compression.lz4.1.1.11.nupkg.sha512",
     "C:\\Users\\dti-\\.nuget\\packages\\k4os.compression.lz4.streams\\1.1.11\\k4os.compression.lz4.streams.1.1.11.nupkg.sha512",
     "C:\\Users\\dti-\\.nuget\\packages\\k4os.hash.xxhash\\1.0.6\\k4os.hash.xxhash.1.0.6.nupkg.sha512",
+    "C:\\Users\\dti-\\.nuget\\packages\\microsoft.aspnetcore.spaproxy\\9.0.9\\microsoft.aspnetcore.spaproxy.9.0.9.nupkg.sha512",
     "C:\\Users\\dti-\\.nuget\\packages\\microsoft.codecoverage\\18.0.0\\microsoft.codecoverage.18.0.0.nupkg.sha512",
     "C:\\Users\\dti-\\.nuget\\packages\\microsoft.csharp\\4.0.1\\microsoft.csharp.4.0.1.nupkg.sha512",
     "C:\\Users\\dti-\\.nuget\\packages\\microsoft.entityframeworkcore\\9.0.7\\microsoft.entityframeworkcore.9.0.7.nupkg.sha512",

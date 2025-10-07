@@ -14,14 +14,14 @@ public class TracoRepository : Repository<Traco>, ITracoRepository
     public async Task<IEnumerable<Traco>> GetByNomeAsync(string nome)
     {
         using var connection = CreateConnection();
-        var sql = "SELECT * FROM tracos WHERE nome ILIKE @Nome";
+        var sql = "SELECT * FROM \"Tracos\" WHERE \"Nome\" ILIKE @Nome";
         return await connection.QueryAsync<Traco>(sql, new { Nome = $"%{nome}%" }, transaction: _transaction);
     }
 
     public async Task<IEnumerable<Traco>> GetByResistenciaAsync(decimal resistenciaMin, decimal resistenciaMax)
     {
         using var connection = CreateConnection();
-        var sql = "SELECT * FROM tracos WHERE resistenciafck BETWEEN @ResistenciaMin AND @ResistenciaMax";
+        var sql = "SELECT * FROM \"Tracos\" WHERE \"ResistenciaFck\" BETWEEN @ResistenciaMin AND @ResistenciaMax";
         return await connection.QueryAsync<Traco>(sql, new { ResistenciaMin = resistenciaMin, ResistenciaMax = resistenciaMax }, transaction: _transaction);
     }
 
@@ -31,10 +31,10 @@ public class TracoRepository : Repository<Traco>, ITracoRepository
 
         var sql = @"
             SELECT t.*, tm.*, m.*
-            FROM tracos t
-            LEFT JOIN tracomaterials tm ON t.id = tm.tracoid
-            LEFT JOIN materials m ON tm.materialid = m.id
-            WHERE t.id = @Id";
+            FROM ""Tracos"" t
+            LEFT JOIN ""TracoMateriais"" tm ON t.""Id"" = tm.""TracoId""
+            LEFT JOIN ""Materiais"" m ON tm.""MaterialId"" = m.""Id""
+            WHERE t.""Id"" = @Id";
 
         var tracoDictionary = new Dictionary<int, Traco>();
 
@@ -59,7 +59,7 @@ public class TracoRepository : Repository<Traco>, ITracoRepository
             },
             new { Id = id },
             transaction: _transaction,
-            splitOn: "tracoid,id");
+            splitOn: "TracoId,Id");
 
         return tracoDictionary.Values.FirstOrDefault();
     }
@@ -70,10 +70,10 @@ public class TracoRepository : Repository<Traco>, ITracoRepository
 
         var sql = @"
             SELECT t.*, tm.*, m.*
-            FROM tracos t
-            LEFT JOIN tracomaterials tm ON t.id = tm.tracoid
-            LEFT JOIN materials m ON tm.materialid = m.id
-            ORDER BY t.id";
+            FROM ""Tracos"" t
+            LEFT JOIN ""TracoMateriais"" tm ON t.""Id"" = tm.""TracoId""
+            LEFT JOIN ""Materiais"" m ON tm.""MaterialId"" = m.""Id""
+            ORDER BY t.""Id""";
 
         var tracoDictionary = new Dictionary<int, Traco>();
 
@@ -97,14 +97,14 @@ public class TracoRepository : Repository<Traco>, ITracoRepository
                 return tracoEntry;
             },
             transaction: _transaction,
-            splitOn: "tracoid,id");
+            splitOn: "TracoId,Id");
 
         return tracoDictionary.Values;
     }
 
     protected override string GetTableName()
     {
-        return "tracos";
+        return "\"Tracos\"";
     }
 
     // Método em português para compatibilidade

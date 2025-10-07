@@ -3,9 +3,6 @@ using Dommel;
 using ReactApp1.Server.Apresentacao.Dependencias;
 using ReactApp1.Server.Apresentacao.Dependencias.Persistencia.UnitOfWorks;
 using ReactApp1.Server.Apresentacao.Dependencias.Persistencia.UnitOfWorks.Interfaces;
-using ReactApp1.Server.Apresentacao.Dependencias.Persistencia.Repositorios;
-using ReactApp1.Server.Apresentacao.Dependencias.Persistencia.Repositorios.Interfaces;
-using ReactApp1.Server.Apresentacao.Dependencias.Persistencia.Configuracao;
 using ReactApp1.Server.Negocio.Servicos;
 using ReactApp1.Server.Negocio.Servicos.Interfaces;
 
@@ -13,9 +10,6 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
 // --- CONFIGURAÇÃO DE SERVIÇOS ---
-
-// 1. Configuração do Dommel
-DommelConfig.Configure();
 
 // 2. Unit of Work
 builder.Services.AddScoped<IUnitOfWork>(provider =>

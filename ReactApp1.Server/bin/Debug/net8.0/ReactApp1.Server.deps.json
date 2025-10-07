@@ -12,6 +12,7 @@
           "Dapper.Contrib.Extensions.Tablename": "1.1.1",
           "Dommel": "3.4.0",
           "FluentAssertions": "8.7.1",
+          "Microsoft.AspNetCore.SpaProxy": "9.0.9",
           "Microsoft.Extensions.Configuration.Json": "9.0.9",
           "Microsoft.NET.Test.Sdk": "18.0.0",
           "MockQueryable.Moq": "8.0.0",
@@ -160,6 +161,7 @@
           }
         }
       },
+      "Microsoft.AspNetCore.SpaProxy/9.0.9": {},
       "Microsoft.CodeCoverage/18.0.0": {
         "runtime": {
           "lib/net8.0/Microsoft.VisualStudio.CodeCoverage.Shim.dll": {
@@ -1977,6 +1979,13 @@
       "sha512": "sha512-jCfNP0inx1sGcP3KSbpiDEH3km2e1sVBjMfKo+V92jr1dL4ZYgA1uhRMl1wAtdGZcbObXIikKqtVlgx3j/CW6g==",
       "path": "k4os.hash.xxhash/1.0.6",
       "hashPath": "k4os.hash.xxhash.1.0.6.nupkg.sha512"
+    },
+    "Microsoft.AspNetCore.SpaProxy/9.0.9": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-4OcpPFPPs+DEf0EH7Qs9DS+Btan6F2GGD5wnv7fOXNCUBpIWi+zj2mWmNpkwhOXDOBSMObeHI/+MB6p4BsnhAQ==",
+      "path": "microsoft.aspnetcore.spaproxy/9.0.9",
+      "hashPath": "microsoft.aspnetcore.spaproxy.9.0.9.nupkg.sha512"
     },
     "Microsoft.CodeCoverage/18.0.0": {
       "type": "package",

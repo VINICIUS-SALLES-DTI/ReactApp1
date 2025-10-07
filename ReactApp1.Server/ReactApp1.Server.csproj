@@ -15,6 +15,7 @@
     <PackageReference Include="Dapper" Version="2.1.66" />
     <PackageReference Include="Dapper.Contrib.Extensions.Tablename" Version="1.1.1" />
     <PackageReference Include="Dommel" Version="3.4.0" />
+    <PackageReference Include="Microsoft.AspNetCore.SpaProxy" Version="9.0.9" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.9" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.0.0" />
     <PackageReference Include="Npgsql" Version="9.0.4" />

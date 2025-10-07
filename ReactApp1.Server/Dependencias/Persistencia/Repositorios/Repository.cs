@@ -19,7 +19,9 @@ public abstract class Repository<T> : IRepository<T> where T : class
 
     protected IDbConnection CreateConnection()
     {
-        return _sharedConnection ?? new NpgsqlConnection(_connectionString);
+        if (_sharedConnection != null)
+            return _sharedConnection;
+        return new NpgsqlConnection(_connectionString);
     }
 
     public void SetTransaction(IDbConnection connection, IDbTransaction transaction)
@@ -30,60 +32,150 @@ public abstract class Repository<T> : IRepository<T> where T : class
 
     public virtual async Task<IEnumerable<T>> GetAllAsync()
     {
-        using var connection = CreateConnection();
-        return await connection.GetAllAsync<T>(transaction: _transaction);
+        var connection = CreateConnection();
+        var shouldDispose = _sharedConnection == null;
+
+        try
+        {
+            if (shouldDispose)
+                await ((NpgsqlConnection)connection).OpenAsync();
+
+            return await connection.GetAllAsync<T>(transaction: _transaction);
+        }
+        finally
+        {
+            if (shouldDispose)
+                connection.Dispose();
+        }
     }
 
     public virtual async Task<T?> GetByIdAsync(int id)
     {
-        using var connection = CreateConnection();
-        return await connection.GetAsync<T>(id, transaction: _transaction);
+        var connection = CreateConnection();
+        var shouldDispose = _sharedConnection == null;
+
+        try
+        {
+            if (shouldDispose)
+                await ((NpgsqlConnection)connection).OpenAsync();
+
+            return await connection.GetAsync<T>(id, transaction: _transaction);
+        }
+        finally
+        {
+            if (shouldDispose)
+                connection.Dispose();
+        }
     }
 
     public virtual async Task<T> AddAsync(T entity)
     {
-        using var connection = CreateConnection();
-        var id = await connection.InsertAsync(entity, transaction: _transaction);
+        var connection = CreateConnection();
+        var shouldDispose = _sharedConnection == null;
 
-        // Se a entidade tem propriedade Id, define o valor retornado
-        var idProperty = typeof(T).GetProperty("Id");
-        if (idProperty != null && idProperty.CanWrite)
+        try
         {
-            idProperty.SetValue(entity, Convert.ChangeType(id, idProperty.PropertyType));
-        }
+            if (shouldDispose)
+                await ((NpgsqlConnection)connection).OpenAsync();
 
-        return entity;
+            var id = await connection.InsertAsync(entity, transaction: _transaction);
+
+            // Se a entidade tem propriedade Id, define o valor retornado
+            var idProperty = typeof(T).GetProperty("Id");
+            if (idProperty != null && idProperty.CanWrite)
+            {
+                idProperty.SetValue(entity, Convert.ChangeType(id, idProperty.PropertyType));
+            }
+
+            return entity;
+        }
+        finally
+        {
+            if (shouldDispose)
+                connection.Dispose();
+        }
     }
 
     public virtual async Task<bool> UpdateAsync(T entity)
     {
-        using var connection = CreateConnection();
-        return await connection.UpdateAsync(entity, transaction: _transaction);
-    }
+        var connection = CreateConnection();
+        var shouldDispose = _sharedConnection == null;
 
+        try
+        {
+            if (shouldDispose)
+                await ((NpgsqlConnection)connection).OpenAsync();
+
+            return await connection.UpdateAsync(entity, transaction: _transaction);
+        }
+        finally
+        {
+            if (shouldDispose)
+                connection.Dispose();
+        }
+    }
     public virtual async Task<bool> DeleteAsync(int id)
     {
-        using var connection = CreateConnection();
-        var entity = await GetByIdAsync(id);
-        if (entity == null)
-            return false;
+        var connection = CreateConnection();
+        var shouldDispose = _sharedConnection == null;
 
-        return await connection.DeleteAsync(entity, transaction: _transaction);
+        try
+        {
+            if (shouldDispose)
+                await ((NpgsqlConnection)connection).OpenAsync();
+
+            var entity = await GetByIdAsync(id);
+            if (entity == null)
+                return false;
+
+            return await connection.DeleteAsync(entity, transaction: _transaction);
+        }
+        finally
+        {
+            if (shouldDispose)
+                connection.Dispose();
+        }
     }
 
     public virtual async Task<bool> ExistsAsync(int id)
     {
-        using var connection = CreateConnection();
-        var entity = await connection.GetAsync<T>(id, transaction: _transaction);
-        return entity != null;
+        var connection = CreateConnection();
+        var shouldDispose = _sharedConnection == null;
+
+        try
+        {
+            if (shouldDispose)
+                await ((NpgsqlConnection)connection).OpenAsync();
+
+            var entity = await connection.GetAsync<T>(id, transaction: _transaction);
+            return entity != null;
+        }
+        finally
+        {
+            if (shouldDispose)
+                connection.Dispose();
+        }
     }
 
     public virtual async Task<int> CountAsync()
     {
-        using var connection = CreateConnection();
-        var tableName = GetTableName();
-        var sql = $"SELECT COUNT(*) FROM {tableName}";
-        return await connection.QuerySingleAsync<int>(sql, transaction: _transaction);
+        var connection = CreateConnection();
+        var shouldDispose = _sharedConnection == null;
+
+        try
+        {
+            if (shouldDispose)
+                await ((NpgsqlConnection)connection).OpenAsync();
+
+            var tableName = GetTableName();
+            var sql = $"SELECT COUNT(*) FROM {tableName}";
+            return await connection.QuerySingleAsync<int>(sql, transaction: _transaction);
+        }
+        finally
+        {
+            if (shouldDispose)
+                connection.Dispose();
+        }
     }
 
     protected virtual string GetTableName()

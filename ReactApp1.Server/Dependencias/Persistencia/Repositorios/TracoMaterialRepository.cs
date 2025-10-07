@@ -33,9 +33,9 @@ public class TracoMaterialRepository : ITracoMaterialRepository
         using var connection = CreateConnection();
         var sql = @"
             SELECT tm.*, m.*
-            FROM tracomaterials tm
-            INNER JOIN materials m ON tm.materialid = m.id
-            WHERE tm.tracoid = @TracoId";
+            FROM ""TracoMateriais"" tm
+            INNER JOIN ""Materiais"" m ON tm.""MaterialId"" = m.""Id""
+            WHERE tm.""TracoId"" = @TracoId";
 
         return await connection.QueryAsync<TracoMaterial, Material, TracoMaterial>(
             sql,
@@ -54,9 +54,9 @@ public class TracoMaterialRepository : ITracoMaterialRepository
         using var connection = CreateConnection();
         var sql = @"
             SELECT tm.*, t.*
-            FROM tracomaterials tm
-            INNER JOIN tracos t ON tm.tracoid = t.id
-            WHERE tm.materialid = @MaterialId";
+            FROM ""TracoMateriais"" tm
+            INNER JOIN ""Tracos"" t ON tm.""TracoId"" = t.""Id""
+            WHERE tm.""MaterialId"" = @MaterialId";
 
         return await connection.QueryAsync<TracoMaterial, Traco, TracoMaterial>(
             sql,
@@ -75,10 +75,10 @@ public class TracoMaterialRepository : ITracoMaterialRepository
         using var connection = CreateConnection();
         var sql = @"
             SELECT tm.*, t.*, m.*
-            FROM tracomaterials tm
-            INNER JOIN tracos t ON tm.tracoid = t.id
-            INNER JOIN materials m ON tm.materialid = m.id
-            WHERE tm.tracoid = @TracoId AND tm.materialid = @MaterialId";
+            FROM ""TracoMateriais"" tm
+            INNER JOIN ""Tracos"" t ON tm.""TracoId"" = t.""Id""
+            INNER JOIN ""Materiais"" m ON tm.""MaterialId"" = m.""Id""
+            WHERE tm.""TracoId"" = @TracoId AND tm.""MaterialId"" = @MaterialId";
 
         var result = await connection.QueryAsync<TracoMaterial, Traco, Material, TracoMaterial>(
             sql,
@@ -99,7 +99,7 @@ public class TracoMaterialRepository : ITracoMaterialRepository
     {
         using var connection = CreateConnection();
         var sql = @"
-            INSERT INTO tracomaterials (tracoid, materialid, quantidade, unidademedida)
+            INSERT INTO ""TracoMateriais"" (""TracoId"", ""MaterialId"", ""Quantidade"", ""UnidadeMedida"")
             VALUES (@TracoId, @MaterialId, @Quantidade, @UnidadeMedida)";
 
         await connection.ExecuteAsync(sql, tracoMaterial, transaction: _transaction);
@@ -110,9 +110,9 @@ public class TracoMaterialRepository : ITracoMaterialRepository
     {
         using var connection = CreateConnection();
         var sql = @"
-            UPDATE tracomaterials 
-            SET quantidade = @Quantidade, unidademedida = @UnidadeMedida
-            WHERE tracoid = @TracoId AND materialid = @MaterialId";
+            UPDATE ""TracoMateriais"" 
+            SET ""Quantidade"" = @Quantidade, ""UnidadeMedida"" = @UnidadeMedida
+            WHERE ""TracoId"" = @TracoId AND ""MaterialId"" = @MaterialId";
 
         var rowsAffected = await connection.ExecuteAsync(sql, tracoMaterial, transaction: _transaction);
         return rowsAffected > 0;
@@ -121,7 +121,7 @@ public class TracoMaterialRepository : ITracoMaterialRepository
     public async Task<bool> DeleteAsync(int tracoId, int materialId)
     {
         using var connection = CreateConnection();
-        var sql = "DELETE FROM tracomaterials WHERE tracoid = @TracoId AND materialid = @MaterialId";
+        var sql = "DELETE FROM \"TracoMateriais\" WHERE \"TracoId\" = @TracoId AND \"MaterialId\" = @MaterialId";
         var rowsAffected = await connection.ExecuteAsync(sql, new { TracoId = tracoId, MaterialId = materialId }, transaction: _transaction);
         return rowsAffected > 0;
     }
@@ -129,7 +129,7 @@ public class TracoMaterialRepository : ITracoMaterialRepository
     public async Task<bool> DeleteByTracoIdAsync(int tracoId)
     {
         using var connection = CreateConnection();
-        var sql = "DELETE FROM tracomaterials WHERE tracoid = @TracoId";
+        var sql = "DELETE FROM \"TracoMateriais\" WHERE \"TracoId\" = @TracoId";
         var rowsAffected = await connection.ExecuteAsync(sql, new { TracoId = tracoId }, transaction: _transaction);
         return rowsAffected > 0;
     }
@@ -137,7 +137,7 @@ public class TracoMaterialRepository : ITracoMaterialRepository
     public async Task<bool> ExistsAsync(int tracoId, int materialId)
     {
         using var connection = CreateConnection();
-        var sql = "SELECT COUNT(1) FROM tracomaterials WHERE tracoid = @TracoId AND materialid = @MaterialId";
+        var sql = "SELECT COUNT(1) FROM \"TracoMateriais\" WHERE \"TracoId\" = @TracoId AND \"MaterialId\" = @MaterialId";
         var count = await connection.QuerySingleAsync<int>(sql, new { TracoId = tracoId, MaterialId = materialId }, transaction: _transaction);
         return count > 0;
     }

@@ -4,7 +4,7 @@ namespace ReactApp1.Server.Apresentacao.Dependencias.Persistencia.Repositorios.I
 
 public interface IMaterialRepository : IRepository<Material>
 {
-    Task<IEnumerable<Material>> GetByNomeAsync(string nome);
+    Task<IEnumerable<Material>> GetPeloNomeAsync(string nome);
     Task<IEnumerable<Material>> GetDisponivelAsync();
     Task<bool> SetDisponibilidadeAsync(int id, bool disponivel);
 }

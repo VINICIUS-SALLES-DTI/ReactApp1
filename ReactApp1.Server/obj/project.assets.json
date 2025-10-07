@@ -193,6 +193,12 @@
           }
         }
       },
+      "Microsoft.AspNetCore.SpaProxy/9.0.9": {
+        "type": "package",
+        "build": {
+          "build/Microsoft.AspNetCore.SpaProxy.targets": {}
+        }
+      },
       "Microsoft.CodeCoverage/18.0.0": {
         "type": "package",
         "compile": {
@@ -3386,6 +3392,21 @@
         "lib/netstandard1.6/K4os.Hash.xxHash.xml",
         "lib/netstandard2.0/K4os.Hash.xxHash.dll",
         "lib/netstandard2.0/K4os.Hash.xxHash.xml"
+      ]
+    },
+    "Microsoft.AspNetCore.SpaProxy/9.0.9": {
+      "sha512": "4OcpPFPPs+DEf0EH7Qs9DS+Btan6F2GGD5wnv7fOXNCUBpIWi+zj2mWmNpkwhOXDOBSMObeHI/+MB6p4BsnhAQ==",
+      "type": "package",
+      "path": "microsoft.aspnetcore.spaproxy/9.0.9",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "THIRD-PARTY-NOTICES.TXT",
+        "build/Microsoft.AspNetCore.SpaProxy.targets",
+        "lib/net9.0/Microsoft.AspNetCore.SpaProxy.dll",
+        "microsoft.aspnetcore.spaproxy.9.0.9.nupkg.sha512",
+        "microsoft.aspnetcore.spaproxy.nuspec"
       ]
     },
     "Microsoft.CodeCoverage/18.0.0": {
@@ -9428,6 +9449,7 @@
       "Dapper.Contrib.Extensions.Tablename >= 1.1.1",
       "Dommel >= 3.4.0",
       "FluentAssertions >= 8.7.1",
+      "Microsoft.AspNetCore.SpaProxy >= 9.0.9",
       "Microsoft.Extensions.Configuration.Json >= 9.0.9",
       "Microsoft.NET.Test.Sdk >= 18.0.0",
       "MockQueryable.Moq >= 8.0.0",
@@ -9505,6 +9527,10 @@
           "FluentAssertions": {
             "target": "Package",
             "version": "[8.7.1, )"
+          },
+          "Microsoft.AspNetCore.SpaProxy": {
+            "target": "Package",
+            "version": "[9.0.9, )"
           },
           "Microsoft.Extensions.Configuration.Json": {
             "target": "Package",
