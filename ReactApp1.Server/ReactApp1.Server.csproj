@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <Content Include="Properties\launchSettings.json" />
+    <Content Include=".gitignore" />
   </ItemGroup>
 
   <ItemGroup>
