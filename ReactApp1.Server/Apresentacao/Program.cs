@@ -3,6 +3,9 @@ using Dommel;
 using ReactApp1.Server.Apresentacao.Dependencias;
 using ReactApp1.Server.Apresentacao.Dependencias.Persistencia.UnitOfWorks;
 using ReactApp1.Server.Apresentacao.Dependencias.Persistencia.UnitOfWorks.Interfaces;
+using ReactApp1.Server.Apresentacao.Dependencias.Persistencia.Repositorios;
+using ReactApp1.Server.Apresentacao.Dependencias.Persistencia.Repositorios.Interfaces;
+using ReactApp1.Server.Apresentacao.Dependencias.Persistencia.Configuracao;
 using ReactApp1.Server.Negocio.Servicos;
 using ReactApp1.Server.Negocio.Servicos.Interfaces;
 
@@ -11,9 +14,18 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 
 // --- CONFIGURAÇÃO DE SERVIÇOS ---
 
-// 1. DbContext
+// 1. Configuração do Dommel
+DommelConfig.Configure();
 
-//3. CORS
+// 2. Unit of Work
+builder.Services.AddScoped<IUnitOfWork>(provider =>
+    new UnitOfWork(connectionString!));
+
+// 3. Serviços de Negócio
+builder.Services.AddScoped<IMaterialServico, MaterialServico>();
+builder.Services.AddScoped<ITracoServico, TracoServico>();
+
+//4. CORS
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowLocalhost", policy =>

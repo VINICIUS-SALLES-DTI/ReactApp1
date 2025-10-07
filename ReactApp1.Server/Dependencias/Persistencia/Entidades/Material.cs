@@ -1,10 +1,12 @@
 using System.ComponentModel.DataAnnotations;
-
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ReactApp1.Server.Apresentacao.Dependencias.Persistencia.Entidades;
 
+[Table("materials")]
 public class Material
 {
+    [Key]
     public int Id { get; set; }
 
     [Required(ErrorMessage = "Nome é obrigatório")]
@@ -17,5 +19,6 @@ public class Material
 
     public bool Disponivel { get; set; } = true;
 
-    public virtual ICollection<TracoMaterial> TracoMateriais { get; set; } = new List<TracoMaterial>();
+    [NotMapped]
+    public ICollection<TracoMaterial> TracoMateriais { get; set; } = new List<TracoMaterial>();
 }

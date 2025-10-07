@@ -1,9 +1,12 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ReactApp1.Server.Apresentacao.Dependencias.Persistencia.Entidades;
 
+[Table("tracos")]
 public class Traco
 {
+    [Key]
     public int Id { get; set; }
 
     [Required(ErrorMessage = "Nome é obrigatório")]
@@ -18,5 +21,6 @@ public class Traco
     [Range(0, double.MaxValue, ErrorMessage = "Slump deve ser maior ou igual a 0 cm")]
     public decimal Slump { get; set; } // em cm
 
-    public virtual ICollection<TracoMaterial> TracoMateriais { get; set; } = new List<TracoMaterial>();
+    [NotMapped]
+    public ICollection<TracoMaterial> TracoMateriais { get; set; } = new List<TracoMaterial>();
 }
